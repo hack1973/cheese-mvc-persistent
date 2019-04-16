@@ -2,21 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body class="container">
-<h1 th:text="${menu.name}">Default Title</h1>
+<h1 th:text="${title}">Default Title</h1>
 
 <nav th:replace="fragments :: navigation"></nav>
 
 <ul>
-    <li  th:each="cheese : ${cheeses}" th:text="${cheese.name}"></li>
+    <li th:each="cheese : ${cheeses}" th:text="${cheese.name} + ' / ' + ${cheese.description} + ' / ' + ${cheese.category.name}"></li>
 </ul>
 
-<p th:unless="${cheese.size()}"><i>No cheeses yet</i></p>
-
-<p><a th:href="'/menu/add-item/' + ${menu.id}">Add Cheese</a></p>
+<p th:unless="${cheeses.size()}"><i>No cheeses yet</i></p>
 
     <nav th:fragment="navigation">
-        <a href="/menu/index">Home</a> |
-        <a href="/menu/add">Add</a>
+        <a href="/menu/">Menu Home</a> |
+        <a href="/menu/add">Add Menu</a> |
+        <a th:href="'/menu/add-item/' + ${menuId}">Add Cheese</a>
     </nav>
 
 </body>
