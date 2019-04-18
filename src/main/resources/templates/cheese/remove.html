@@ -11,9 +11,7 @@
 
     <div th:each="cheese : ${cheeses}" class="checkbox">
         <input type="checkbox" name="cheeseIds" th:value="${cheese.id}" th:id="${cheese.id}"/>
-        <label th:for="${cheese.id}" th:text="${cheese.name}"></label>
-        <label th:for="${cheese.id}" th:text="${cheese.description}"></label>
-        <label th:for="${cheese.id}" th:text="${cheese.category.name}"></label>
+        <label th:for="${cheese.id}" th:text="${cheese.name} + ' / ' + ${cheese.description} + ' / ' + ${cheese.category.name}"></label>
         <br />
     </div>
 
@@ -21,8 +19,8 @@
 </form>
 
 <nav th:fragment="navigation">
-    <a href="/cheese/index">Home</a> |
-    <a href="/cheese/add">Add</a>
+    <a href="/cheese/">Cheese Home</a> |
+    <a href="/cheese/add">Add Cheese</a>
 </nav>
 
 </body>

@@ -22,19 +22,6 @@ public class CategoryController {
     @Autowired
     private CategoryDao categoryDao;
 
-//    // The detail display for a given Job at URLs like /job?id=17
-//    @RequestMapping(value = "", method = RequestMethod.GET)
-//    public String index(Model model, int id) {
-//
-//        // get the Job with the given ID and pass it into the view
-//        // Find job by id and pass to view
-//        Job job = jobData.findById(id);
-//        model.addAttribute("job", job);
-//
-//        return "job-detail";
-//    }
-
-
     // Request path: /category
     @RequestMapping(value = "")
     public String index(Model model) {
@@ -56,6 +43,7 @@ public class CategoryController {
     public String add(Model model, @ModelAttribute @Valid Category category, Errors errors) {
 
         if (errors.hasErrors()) {
+            //model.addAttribute(new Category());
             model.addAttribute("title", "Add Category");
             return "category/add";
         }

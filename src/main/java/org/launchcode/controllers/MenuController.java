@@ -28,12 +28,10 @@ public class MenuController {
     @Autowired
     private CheeseDao cheeseDao;
 
-    // Request path: /category
     @RequestMapping(value = "")
     public String index(Model model) {
         model.addAttribute("title", "Menus");
         model.addAttribute("menus", menuDao.findAll());
-
         return "menu/index";
     }
 
@@ -41,28 +39,26 @@ public class MenuController {
     public String add(Model model) {
         model.addAttribute("title", "Add Menu");
         model.addAttribute(new Menu());
-        //model.addAttribute("menu", menuDao.findAll());
         return "menu/add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String add(
-            @ModelAttribute  @Valid Menu menu,
+            @ModelAttribute @Valid Menu menu,
             Errors errors,
             Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Menu");
-            model.addAttribute(new Menu());
-            //model.addAttribute("menu", menuDao.findAll());
+            //model.addAttribute(new Menu());
             return "menu/add";
         }
-
         menuDao.save(menu);
+
         return "redirect:view/" + menu.getId();
     }
 
-    @RequestMapping(value = "view/{menu.id}", method = RequestMethod.GET)
+    @RequestMapping(value = "view/{menuId}", method = RequestMethod.GET)
     public String viewMenu(Model model, @PathVariable int menuId) {
 
         Menu menu = menuDao.findOne(menuId);
@@ -73,7 +69,7 @@ public class MenuController {
         return "menu/view";
     }
 
-    @RequestMapping(value = "add-item/{menu.id}", method = RequestMethod.GET)
+    @RequestMapping(value = "add-item/{menuId}", method = RequestMethod.GET)
     public String addItem(Model model, @PathVariable int menuId) {
 
         Menu menu = menuDao.findOne(menuId);
@@ -88,7 +84,7 @@ public class MenuController {
 
     }
 
-    @RequestMapping(value = "add-item/{menu.id}", method = RequestMethod.POST)
+    @RequestMapping(value = "add-item", method = RequestMethod.POST)
     public String addItem(Model model,
                           @ModelAttribute @Valid AddMenuItemForm form,
                           Errors errors) {
